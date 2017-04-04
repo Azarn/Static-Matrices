@@ -58,7 +58,7 @@ namespace Static_Matrices {
         }
 
         public static CoVector3 operator /(double scalar, CoVector3 covector) {
-            return covector * scalar;
+            return covector / scalar;
         }
 
         public static double operator *(CoVector3 first, CoVector3 second) {
