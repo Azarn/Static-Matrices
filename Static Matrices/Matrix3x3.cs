@@ -13,9 +13,6 @@ namespace Static_Matrices {
         private Matrix3x3(Vector3[] vectors) {
             cv = null;
             Vectors = vectors;
-            foreach(var x in vectors) {
-                Console.WriteLine(x);
-            }
         }
 
         public Matrix3x3(Vector3 first, Vector3 second, Vector3 third) : this(new Vector3[3] { first, second, third }) { }

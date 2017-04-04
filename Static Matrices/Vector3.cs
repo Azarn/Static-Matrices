@@ -72,7 +72,7 @@ namespace Static_Matrices {
         }
 
         public static double operator *(Vector3 first, CoVector3 second) {
-            return first.X * second.X + first.Y * second.Y + first.Z * second.Z;
+            return first * (Vector3)second;
         }
 
         public static Matrix3x3 operator *(CoVector3 first, Vector3 second) {
