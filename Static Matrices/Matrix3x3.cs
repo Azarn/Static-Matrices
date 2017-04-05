@@ -49,9 +49,9 @@ namespace Static_Matrices {
         public double Z3 => Vectors[2].Z;
 
         public double this[int row, int column] => Vectors[row][column];
+        public Vector3 this[int row] => Vectors[row];
 
         public double Det => CoVectors[0] * (CoVectors[1] ^ CoVectors[2]);
-
         public double Trace => Vectors[0].X + Vectors[1].Y + Vectors[2].Z;
         public double Norm => Math.Sqrt(Vectors.Select(v => v.X * v.X + v.Y * v.Y + v.Z * v.Z).Sum());
         public Matrix3x3 Transposed => new Matrix3x3(Array.ConvertAll(CoVectors, cv => (Vector3)cv));
@@ -60,6 +60,30 @@ namespace Static_Matrices {
                                                    (Vector3)(CoVectors[0] ^ CoVectors[1])) / Det;
         public Matrix3x3 Symmetrized => (this + Transposed) / 2;
         public Matrix3x3 Asymmetrized => (this - Transposed) / 2;
+
+        public override int GetHashCode() {
+            return 163 * Vectors[0].GetHashCode()  + 181 * Vectors[1].GetHashCode() + 199 * Vectors[2].GetHashCode();
+        }
+
+        public override bool Equals(object obj) {
+            if (!(obj is Matrix3x3)) {
+                return false;
+            }
+
+            return Equals((Matrix3x3)obj);
+        }
+
+        public bool Equals(Matrix3x3 m) {
+            return Vectors[0] == m[0] && Vectors[1] == m[1] && Vectors[2] == m[2];
+        }
+
+        public static bool operator ==(Matrix3x3 first, Matrix3x3 second) {
+            return first.Equals(second);
+        }
+
+        public static bool operator !=(Matrix3x3 first, Matrix3x3 second) {
+            return !(first == second);
+        }
 
         public static Matrix3x3 operator +(Matrix3x3 first, Matrix3x3 second) {
             return new Matrix3x3(first.Vectors.Zip(second.Vectors, (f, s) => f + s).ToArray());
@@ -79,10 +103,6 @@ namespace Static_Matrices {
 
         public static Matrix3x3 operator /(Matrix3x3 matrix, double scalar) {
             return new Matrix3x3(Array.ConvertAll(matrix.Vectors, v => v / scalar));
-        }
-
-        public static Matrix3x3 operator /(double scalar, Matrix3x3 matrix) {
-            return matrix * scalar;
         }
 
         public static Vector3 operator *(Vector3 vector, Matrix3x3 matrix) {

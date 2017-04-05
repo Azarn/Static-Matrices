@@ -37,6 +37,14 @@ namespace Static_Matrices {
             return X == v.X && Y == v.Y && Z == v.Z;
         }
 
+        public static bool operator ==(Vector3 first, Vector3 second) {
+            return first.Equals(second);
+        }
+
+        public static bool operator !=(Vector3 first, Vector3 second) {
+            return !(first == second);
+        }
+
         public static Vector3 operator +(Vector3 first, Vector3 second) {
             return new Vector3(first.X + second.X, first.Y + second.Y, first.Z + second.Z);
         }
@@ -55,10 +63,6 @@ namespace Static_Matrices {
 
         public static Vector3 operator /(Vector3 vector, double scalar) {
             return new Vector3(vector.X / scalar, vector.Y / scalar, vector.Z / scalar);
-        }
-
-        public static Vector3 operator /(double scalar, Vector3 vector) {
-            return vector / scalar;
         }
 
         public static double operator *(Vector3 first, Vector3 second) {
