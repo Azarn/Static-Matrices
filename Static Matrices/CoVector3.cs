@@ -6,16 +6,29 @@ using System.Threading.Tasks;
 
 namespace Static_Matrices {
     public struct CoVector3 {
-        private double[] v;
-
         public CoVector3(double x, double y, double z) {
-            v = new double[3] { x, y, z };
+            X = x;
+            Y = y;
+            Z = z;
         }
 
-        public double this[int index] => v[index];
-        public double X => v[0];
-        public double Y => v[1];
-        public double Z => v[2];
+        public double this[int index] {
+            get {
+                switch (index) {
+                    case 0:
+                        return X;
+                    case 1:
+                        return Y;
+                    case 2:
+                        return Z;
+                    default:
+                        throw new IndexOutOfRangeException(String.Format("0 <= index < 3, but got {0}", index));
+                }
+            }
+        }
+        public double X { get; private set; }
+        public double Y { get; private set; }
+        public double Z { get; private set; }
 
         public double V0 => Math.Sqrt(X * X + Y * Y + Z * Z);
 
